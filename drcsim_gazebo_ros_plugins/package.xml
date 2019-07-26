@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+  <name>drcsim_gazebo_ros_plugins</name>
+  <version>3.1.0</version>
+  <description>The drcsim_gazebo_ros_plugins package</description>
+  <maintainer email="hsu@osrfoundation.org">John Hsu</maintainer>
+  <license>Apache 2.0</license>
+  <url type="website">http://gazebosim.org/wiki/DRC</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>drcsim_model_resources</build_depend>
+  <build_depend>drcsim_gazebo_plugins</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>gazebo_plugins</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>gazebo_msgs</build_depend>
+
+  <run_depend>drcsim_model_resources</run_depend>
+  <run_depend>drcsim_gazebo_plugins</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>gazebo_plugins</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>gazebo_msgs</run_depend>
+
+</package>

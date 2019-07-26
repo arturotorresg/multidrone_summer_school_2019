@@ -1,0 +1,93 @@
+<launch>
+
+    <arg name="multi" default="false"/>
+
+    <arg name="vehicle" default="typhoon_h480"/>
+    <arg name="world" default="$(find summer_school_exercises)/worlds/outdoor.world"/>
+
+    <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find drcsim_model_resources)/gazebo_models"/>
+    <env name="GAZEBO_RESOURCE_PATH" value="${GAZEBO_RESOURCE_PATH}:$(find drcsim_model_resources)/gazebo_models"/>
+
+    <rosparam param="use_sim_time">true</rosparam>
+
+    <!-- Launch Gazebo simulation TODO: world location? -->
+    <node pkg="px4_bringup" type="launch_gzworld.py" name="gazebo_world" output="screen"
+    args="-physics=ode -world=$(arg world)"/>
+
+    <!-- Launch robot id=1 -->
+    <include file="$(find px4_bringup)/launch/spawn_robot.launch" ns="drone_1">
+        <arg name="id" value="1"/>
+        <arg name="robot_model" value="$(arg vehicle)"/>
+        <arg name="x" value="-3.0"/>
+        <arg name="y" value="0"/>
+        <arg name="z" value="0"/>
+        <arg name="yaw" value="3.141592"/>
+    </include>
+    <!-- Launch UAL server for drone id=1 -->
+    <node pkg="uav_abstraction_layer" type="server" name="ual" output="screen" ns="drone_1">
+        <param name="uav_id" value="1"/>
+        <param name="pose_frame_id" value="map"/>
+        <rosparam param="home_pose">[-3.0, 0, 0]</rosparam><!-- [x,y,z] -->
+    </node>
+    <!-- Camera 1 -->
+    <node name="rqt_image_view_1" pkg="rqt_image_view" type="rqt_image_view" args="/$(arg vehicle)_1/cgo3_camera/image_raw"/>
+
+    <group if="$(arg multi)">
+        <!-- Launch robot id=2 -->
+        <include file="$(find px4_bringup)/launch/spawn_robot.launch" ns="drone_2">
+            <arg name="id" value="2"/>
+            <arg name="robot_model" value="$(arg vehicle)"/>
+            <arg name="x" value="0"/>
+            <arg name="y" value="4.0"/>
+            <arg name="z" value="0"/>
+            <arg name="yaw" value="3.141592"/>
+        </include>
+        <!-- Launch UAL server for drone id=2 -->
+        <node pkg="uav_abstraction_layer" type="server" name="ual" output="screen" ns="drone_2">
+            <param name="uav_id" value="2"/>
+            <param name="pose_frame_id" value="map"/>
+            <rosparam param="home_pose">[0, 4.0, 0]</rosparam><!-- [x,y,z] -->
+        </node>
+        <!-- Camera 2 -->
+        <node name="rqt_image_view_2" pkg="rqt_image_view" type="rqt_image_view" args="/$(arg vehicle)_2/cgo3_camera/image_raw"/>
+
+        <!-- Launch robot id=3 -->
+        <include file="$(find px4_bringup)/launch/spawn_robot.launch" ns="drone_3">
+            <arg name="id" value="3"/>
+            <arg name="robot_model" value="$(arg vehicle)"/>
+            <arg name="x" value="0"/>
+            <arg name="y" value="-4.0"/>
+            <arg name="z" value="0"/>
+            <arg name="yaw" value="3.141592"/>
+        </include>
+        <!-- Launch UAL server for drone id=3 -->
+        <node pkg="uav_abstraction_layer" type="server" name="ual" output="screen" ns="drone_3">
+            <param name="uav_id" value="3"/>
+            <param name="pose_frame_id" value="map"/>
+            <rosparam param="home_pose">[0, -4.0, 0]</rosparam><!-- [x,y,z] -->
+        </node>
+        <!-- Camera 3 -->
+        <node name="rqt_image_view_3" pkg="rqt_image_view" type="rqt_image_view" args="/$(arg vehicle)_3/cgo3_camera/image_raw"/>
+    </group>
+
+    <!-- Start vehicle node -->
+    <node name="drc_vehicle_moving" pkg="summer_school_exercises" type="drc_vehicle_moving" output="screen"/> 
+
+
+    <!-- Start follow_vehicle nodes -->
+
+    <node name="follow_vehicle" pkg="summer_school_exercises" type="follow_vehicle.py" output="screen" ns="drone_1">
+        <param name="drone_id" value="1"/>
+    </node>
+
+    <group if="$(arg multi)">
+        <node name="follow_vehicle_2" pkg="summer_school_exercises" type="demo_follow_vehicle_ual_server" output="screen">
+            <param name="uav_id" value="2"/>
+        </node>
+
+        <node name="follow_vehicle_3" pkg="summer_school_exercises" type="demo_follow_vehicle_ual_server" output="screen">
+            <param name="uav_id" value="3"/>
+        </node>
+    </group>
+
+</launch>
