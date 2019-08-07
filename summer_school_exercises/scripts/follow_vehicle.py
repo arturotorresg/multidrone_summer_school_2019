@@ -99,4 +99,5 @@ if __name__ == "__main__":
     # Associate signal SIGINT (Ctrl+C pressed) to handler (function "signal_handler")
     signal.signal(signal.SIGINT, signal_handler)
 
+    # Spin while ROS is not shutdown
     rospy.spin()
