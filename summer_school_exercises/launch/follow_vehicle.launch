@@ -1,0 +1,24 @@
+<launch>
+
+    <arg name="multi" default="false"/>
+
+    <!-- Start follow_vehicle nodes -->
+
+    <node name="follow_vehicle" pkg="summer_school_exercises" type="follow_vehicle.py" output="screen" ns="drone_1">
+        <param name="drone_id" value="1"/>
+        <rosparam param="relative_position">[-5.0, 0.0, 3.0]</rosparam>
+    </node>
+
+    <group if="$(arg multi)">
+        <node name="follow_vehicle" pkg="summer_school_exercises" type="follow_vehicle.py" output="screen" ns="drone_2">
+            <param name="drone_id" value="2"/>
+            <rosparam param="relative_position">[-2.0, 3.0, 3.0]</rosparam>
+        </node>
+
+        <node name="follow_vehicle" pkg="summer_school_exercises" type="follow_vehicle.py" output="screen" ns="drone_3">
+            <param name="drone_id" value="3"/>
+            <rosparam param="relative_position">[2.0, -4.0, 3.0]</rosparam>
+        </node>
+    </group>
+
+</launch>

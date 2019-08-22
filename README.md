@@ -44,7 +44,7 @@ We start with simple exercises to know how UAL works, how to simulate several dr
 6. **Run a simulation with 3 drones** - `roslaunch uav_abstraction_layer test_server.launch multi:=true ns_prefix:=drone_`
 7. **Repeat the previous steps with the 3 drones** - Observe the namespacing.
 
-### Part B: Follow a moving target and shooting it with the camera
+### Part B: Follow a moving target shooting it with the camera
 Here is where you actually use the UAL to follow a moving target, an autonomous car, and also where you can implement a gimbal controller to point the camera at this car at the same time.
 
 1. **Check the code structure** - Look at the sample code and check the available data.

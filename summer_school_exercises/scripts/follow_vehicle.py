@@ -22,7 +22,7 @@ class FollowVehicle:
         self.ual_state = State.UNINITIALIZED
 
         # Get relative position from params
-        self.relative_position = rospy.get_param('~relative_position', default=[-1.0, 0.0, 3.0])
+        self.relative_position = rospy.get_param('~relative_position', default=[-5.0, 0.0, 3.0])
 
         # ROS Subscribers
         self.drone_pose_sub = rospy.Subscriber('ual/pose', PoseStamped, self.drone_pose_callback, queue_size=1)
@@ -52,13 +52,14 @@ class FollowVehicle:
         while self.ual_state != State.FLYING_AUTO and not rospy.is_shutdown():
             rospy.loginfo('Drone %d: waiting for take off'%self.id)
             time.sleep(0.2)
+        rospy.loginfo('Drone %d: ready to follow vehicle'%self.id)
 
         # Start timer at 30Hz to control the drone
         rospy.Timer(rospy.Duration(1.0/30.0), self.timer_callback)
 
 
     def timer_callback(self,event):
-        #---------------------------------------------------------------------------------------------------------#
+        #-----------------------------------------------------------------#
         # Put your code here
         self.desired_pose.pose = self.target_pose.pose.pose
         self.desired_pose.pose.position.x += self.relative_position[0]
@@ -66,7 +67,7 @@ class FollowVehicle:
         self.desired_pose.pose.position.z += self.relative_position[2]
 
         self.set_pose_pub.publish(self.desired_pose)
-        #---------------------------------------------------------------------------------------------------------#
+        #-----------------------------------------------------------------#
 
     def drone_pose_callback(self,pose):
         self.current_pose = pose
