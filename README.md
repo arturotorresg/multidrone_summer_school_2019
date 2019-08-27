@@ -37,7 +37,7 @@ The exercises are designed such that their complexity increases. Maybe we will n
 We start with simple exercises to know how UAL works, how to simulate several drones and how to command them.
 
 1. **Start a simulation** - `roslaunch uav_abstraction_layer test_server.launch`
-2. **Run UAL state monitor** - `rosrun uav_abstraction_layer state_monit.py`
+2. **Run UAL state monitor** - `rosrun uav_abstraction_layer state_monitor.py`
 3. **Check topics and services** - `rostopic list` | `rosservice list`
 4. **Command the drone through command line** - Call the take-off, land and go to waypoint services, send position and velocity commands through topics.
 5. **Command the drone through key_teleop node** - `rosrun ual_teleop key_teleop.py`

@@ -61,12 +61,8 @@ class FollowVehicle:
     def timer_callback(self,event):
         #-----------------------------------------------------------------#
         # Put your code here
-        self.desired_pose.pose = self.target_pose.pose.pose
-        self.desired_pose.pose.position.x += self.relative_position[0]
-        self.desired_pose.pose.position.y += self.relative_position[1]
-        self.desired_pose.pose.position.z += self.relative_position[2]
 
-        self.set_pose_pub.publish(self.desired_pose)
+
         #-----------------------------------------------------------------#
 
     def drone_pose_callback(self,pose):

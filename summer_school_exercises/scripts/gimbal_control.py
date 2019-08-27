@@ -66,20 +66,11 @@ class GimbalControl:
             #-----------------------------------------------------------------#
             # Put your code here
 
-            q_I = np.array(np.array(target_pos - drone_pos))
-            r_x_3 = q_I/l.norm(q_I)
-            a = np.cross(r_x_3,-unitz)
             
-            r_x_2 = a/l.norm(a)
-            b = np.cross(r_x_2, r_x_3)
-
-            r_x_1 = b/l.norm(b)
-
-            R_x = np.transpose(np.matrix([r_x_1 ,r_x_2, r_x_3]))
-            self.rotation_matrix_to_euler_angles_xyz(R_x, gimbal_euler)
 
             #-----------------------------------------------------------------#
 
+            self.rotation_matrix_to_euler_angles_xyz(R_x, gimbal_euler)
             drone_att = self.current_pose.pose.orientation
             drone_yaw_ = m.atan2( 2*(drone_att_.w*drone_att_.z + drone_att_.x*drone_att_.y), 1-2*(drone_att_.y*drone_att_.y + drone_att_.z*drone_att_.z) )
 
