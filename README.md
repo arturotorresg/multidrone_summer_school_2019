@@ -6,7 +6,7 @@ This is the repository for the exercises of the workshop on "Drones with ROS and
 ## Dependencies
 
 * [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
-* [grvc-ual](https://github.com/grvcTeam/grvc-ual) at tag [v2.2](https://github.com/grvcTeam/grvc-ual/tree/v2.2)
+* [grvc-ual](https://github.com/grvcTeam/grvc-ual)
 * [PX4 Firmware](https://github.com/PX4/Firmware) at tag [v1.7.3](https://github.com/PX4/Firmware/tree/v1.7.3)
 
 ## Installation

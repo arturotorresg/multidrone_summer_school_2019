@@ -47,8 +47,5 @@ include_directories(
 
 include_directories(include ${catkin_INCLUDE_DIRS} ${Eigen3_INCLUDE_DIRS})
 
-add_executable(demo_follow_vehicle_ual_server src/demo_follow_vehicle_ual_server.cpp)
-target_link_libraries(demo_follow_vehicle_ual_server ${catkin_LIBRARIES})
-
 add_executable(drc_vehicle_moving src/drc_vehicle_moving.cpp)
 target_link_libraries(drc_vehicle_moving ${catkin_LIBRARIES})
